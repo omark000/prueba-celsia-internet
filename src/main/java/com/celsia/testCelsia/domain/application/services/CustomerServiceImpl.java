@@ -1,5 +1,6 @@
 package com.celsia.testCelsia.domain.application.services;
 
+import com.celsia.testCelsia.domain.application.services.customerlogic.ClientCustomerSave;
 import com.celsia.testCelsia.domain.entities.Customer;
 import com.celsia.testCelsia.infrastructure.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String saveCustomer(Customer customer) {
-        customerRepository.save(customer);
-        return customer.getIdentificacion();
+
+        ClientCustomerSave clientCustomerSave = new ClientCustomerSave();
+        List<String> lstErrors = clientCustomerSave.ExecuteSaveCustomer(customer, customerRepository);
+
+        if(lstErrors.isEmpty()){
+            customerRepository.save(customer);
+            return customer.getIdentificacion();
+        }
+
+        return lstErrors.toString();
     }
 
     @Override

@@ -12,9 +12,15 @@ public class MapperAdapterImpl implements MapperAdapter{
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public CustomerDto convertClassToDto(Customer customer){
-        return objectMapper.convertValue(customer, CustomerDto.class);
+    public Object convertClassToDto(Customer entitySource, Class dtoTarget){
+        return objectMapper.convertValue(entitySource, dtoTarget);
     }
+
+    @Override
+    public Object convertDtoToClass(CustomerDto dtoSource, Class entityTarget) {
+        return objectMapper.convertValue(dtoSource, entityTarget);
+    }
+
     public List<CustomerDto> convertClassListToDto(List<Customer> lstCustomer){
         return objectMapper.convertValue(lstCustomer, objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, CustomerDto.class));

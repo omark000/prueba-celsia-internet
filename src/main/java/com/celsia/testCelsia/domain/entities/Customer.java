@@ -15,12 +15,18 @@ import java.util.Date;
 @Table(name ="clientes")
 public class Customer {
     @Id
-    @Column(name = "identificacion")
+    @Column(name = "identificacion", nullable = false,length = 20)
     private String identificacion;
+    @Column(name = "nombres", nullable = false, length = 80)
     private String nombres;
+    @Column(name = "apellidos", nullable = false, length = 80)
     private String apellidos;
+    @Column(name = "tipoidentificacion", nullable = false, length = 2)
     private String tipoidentificacion;
+    @Column(name = "fechanacimiento", nullable = false)
     private Date fechanacimiento;
+    @Column(name = "numerocelular", nullable = false, length = 20)
     private String numerocelular;
+    @Column(name = "correoelectronico", nullable = false, length = 80)
     private String correoelectronico;
 }

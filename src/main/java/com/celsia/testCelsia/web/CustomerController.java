@@ -6,10 +6,7 @@ import com.celsia.testCelsia.domain.entities.Customer;
 import com.celsia.testCelsia.web.dto.CustomerDto;
 import com.celsia.testCelsia.web.mapperadapter.MapperAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,7 +32,20 @@ public class CustomerController {
     @GetMapping("/getCustomerById/{identification}")
     public CustomerDto getCustomerById(@PathVariable String identification) {
         Customer customer = customerService.findByIdentification(identification);
-        return mapperAdapter.convertClassToDto(customer);
+        return (CustomerDto) mapperAdapter.convertClassToDto(customer, CustomerDto.class);
+    }
+
+    @PostMapping("/saveCustomer")
+    public String saveCustomer(@RequestBody CustomerDto dto) {
+        Customer customer = (Customer)mapperAdapter.convertDtoToClass(dto,Customer.class);
+        return customerService.saveCustomer(customer);
+    }
+
+    @PutMapping("/updateCustomer/{identification}")
+    public CustomerDto updateExternalSystem(@PathVariable String identification, @RequestBody CustomerDto dto){
+        Customer customer = (Customer)mapperAdapter.convertDtoToClass(dto,Customer.class);
+        Customer customerUpdate = customerService.updateCustomer(identification,customer);
+        return (CustomerDto) mapperAdapter.convertClassToDto(customerUpdate, CustomerDto.class);
     }
 
 
