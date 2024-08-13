@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CustomerService {
     List<Customer> findAllCustomers();
-    String saveCustomer(Customer customer);
+    List<String> saveCustomer(Customer customer);
     void deleteCustomerById(String identification);
     Customer updateCustomer(String identification, Customer customer);
     Customer findByIdentification(String identification);

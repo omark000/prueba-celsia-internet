@@ -6,7 +6,9 @@ import com.celsia.testCelsia.domain.entities.Customer;
 import com.celsia.testCelsia.web.dto.CustomerDto;
 import com.celsia.testCelsia.web.mapperadapter.MapperUserAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -36,9 +38,15 @@ public class CustomerController {
     }
 
     @PostMapping("/saveCustomer")
-    public String saveCustomer(@RequestBody CustomerDto dto) {
+    public ResponseEntity<List<String>> saveCustomer(@RequestBody CustomerDto dto) {
         Customer customer = (Customer) mapperUserAdapter.convertDtoToClass(dto,Customer.class);
-        return customerService.saveCustomer(customer);
+        List<String> lstDetailsRequest = customerService.saveCustomer(customer);
+
+        if(lstDetailsRequest.isEmpty()){
+            return new ResponseEntity<>(lstDetailsRequest, HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity<>(lstDetailsRequest, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/updateCustomer/{identification}")

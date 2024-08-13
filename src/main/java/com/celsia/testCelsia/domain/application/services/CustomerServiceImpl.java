@@ -3,12 +3,15 @@ package com.celsia.testCelsia.domain.application.services;
 import com.celsia.testCelsia.domain.application.services.customerlogic.ClientCustomerSave;
 import com.celsia.testCelsia.domain.entities.Customer;
 import com.celsia.testCelsia.infrastructure.CustomerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
@@ -23,17 +26,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String saveCustomer(Customer customer) {
+    public List<String> saveCustomer(Customer customer) {
 
         ClientCustomerSave clientCustomerSave = new ClientCustomerSave();
         List<String> lstErrors = clientCustomerSave.ExecuteSaveCustomer(customer, customerRepository);
 
         if(lstErrors.isEmpty()){
             customerRepository.save(customer);
-            return customer.getIdentificacion();
+            return new ArrayList<>();
         }
-
-        return lstErrors.toString();
+        log.error(lstErrors.toString());
+        return lstErrors;
     }
 
     @Override
