@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Cliente</title>
+</head>
+<body>
+<h1>Registrar Cliente</h1>
+<form id="clienteForm">
+    <label for="identificacion">Identificación:</label><br>
+    <input type="text" id="identificacion" name="identificacion" maxlength="20" required><br><br>
+
+    <label for="nombres">Nombres:</label><br>
+    <input type="text" id="nombres" name="nombres" maxlength="80" required><br><br>
+
+    <label for="apellidos">Apellidos:</label><br>
+    <input type="text" id="apellidos" name="apellidos" maxlength="80" required><br><br>
+
+    <label for="tipoidentificacion">Tipo Identificación:</label><br>
+    <input type="text" id="tipoidentificacion" name="tipoidentificacion" maxlength="2" required><br><br>
+
+    <label for="fechanacimiento">Fecha de Nacimiento:</label><br>
+    <input type="date" id="fechanacimiento" name="fechanacimiento" required><br><br>
+
+    <label for="numerocelular">Número Celular:</label><br>
+    <input type="text" id="numerocelular" name="numerocelular" maxlength="20" required><br><br>
+
+    <label for="correoelectronico">Correo Electrónico:</label><br>
+    <input type="email" id="correoelectronico" name="correoelectronico" maxlength="80" required><br><br>
+
+    <button type="submit">Registrar</button>
+</form>
+
+<script>
+    document.getElementById('clienteForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const cliente = {
+        identificacion: document.getElementById('identificacion').value,
+        nombres: document.getElementById('nombres').value,
+        apellidos: document.getElementById('apellidos').value,
+        tipoidentificacion: document.getElementById('tipoidentificacion').value,
+        fechanacimiento: document.getElementById('fechanacimiento').value,
+        numerocelular: document.getElementById('numerocelular').value,
+        correoelectronico: document.getElementById('correoelectronico').value
+    };
+
+    fetch('/CustomerController/saveCustomer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cliente)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Error en la respuesta del servidor');
+        }
+    })
+    .then(data => {
+
+        console.log('Cliente registrado:', data);
+        alert('Cliente registrado con éxito');
+    })
+    .catch(error => {
+        debugger
+        console.error('Error al registrar cliente:', error);
+        alert('Error al registrar cliente');
+    });
+});
+
+</script>
+</body>
+</html>
