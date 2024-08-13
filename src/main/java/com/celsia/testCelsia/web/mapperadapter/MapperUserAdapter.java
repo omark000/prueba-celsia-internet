@@ -5,7 +5,7 @@ import com.celsia.testCelsia.web.dto.CustomerDto;
 
 import java.util.List;
 
-public interface MapperAdapter {
+public interface MapperUserAdapter {
 
     Object convertClassToDto(Customer entitySource, Class dtoTarget);
     Object convertDtoToClass(CustomerDto dtoSource, Class dtoTarget);

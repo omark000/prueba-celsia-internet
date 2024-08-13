@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MapperAdapterImpl implements MapperAdapter{
+public class MapperUserAdapterImpl implements MapperUserAdapter {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
+    @Override
     public Object convertClassToDto(Customer entitySource, Class dtoTarget){
         return objectMapper.convertValue(entitySource, dtoTarget);
     }
@@ -21,6 +22,7 @@ public class MapperAdapterImpl implements MapperAdapter{
         return objectMapper.convertValue(dtoSource, entityTarget);
     }
 
+    @Override
     public List<CustomerDto> convertClassListToDto(List<Customer> lstCustomer){
         return objectMapper.convertValue(lstCustomer, objectMapper.getTypeFactory()
                 .constructCollectionType(List.class, CustomerDto.class));

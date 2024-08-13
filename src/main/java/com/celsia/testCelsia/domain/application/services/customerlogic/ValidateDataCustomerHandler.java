@@ -2,8 +2,6 @@ package com.celsia.testCelsia.domain.application.services.customerlogic;
 
 import com.celsia.testCelsia.domain.entities.Customer;
 import lombok.Data;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Data

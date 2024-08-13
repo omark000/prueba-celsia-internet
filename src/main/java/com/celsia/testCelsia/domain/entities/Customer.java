@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -29,4 +30,5 @@ public class Customer {
     private String numerocelular;
     @Column(name = "correoelectronico", nullable = false, length = 80)
     private String correoelectronico;
+
 }
