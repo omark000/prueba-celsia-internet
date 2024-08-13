@@ -14,7 +14,6 @@ public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    private String identificacion;
     private String servicio;
     private Date fechainicio;
     private Date ultimafacturacion;

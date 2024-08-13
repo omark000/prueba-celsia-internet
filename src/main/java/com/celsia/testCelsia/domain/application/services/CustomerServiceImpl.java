@@ -47,4 +47,9 @@ public class CustomerServiceImpl implements CustomerService {
                     return customerRepository.save(loadCustomerSystem);
                 }).orElse(new Customer());
     }
+
+    @Override
+    public Customer findByIdentification(String identification) {
+        return customerRepository.findByIdentificacion(identification).orElse(new Customer());
+    }
 }

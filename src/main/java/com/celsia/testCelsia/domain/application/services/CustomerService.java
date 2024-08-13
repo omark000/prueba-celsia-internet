@@ -9,5 +9,6 @@ public interface CustomerService {
     String saveCustomer(Customer customer);
     void deleteCustomerById(String identification);
     Customer updateCustomer(String identification, Customer customer);
+    Customer findByIdentification(String identification);
 
 }

@@ -9,8 +9,8 @@ public class CustomerDto {
     private String identificacion;
     private String nombres;
     private String apellidos;
-    private String tipoIdentificacion;
-    private Date fechNacimiento;
-    private String numeroCelular;
-    private String correoElectronico;
+    private String tipoidentificacion;
+    private Date fechanacimiento;
+    private String numerocelular;
+    private String correoelectronico;
 }

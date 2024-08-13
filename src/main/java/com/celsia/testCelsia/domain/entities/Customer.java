@@ -22,6 +22,5 @@ public class Customer {
     private String tipoidentificacion;
     private Date fechanacimiento;
     private String numerocelular;
-
     private String correoelectronico;
 }
