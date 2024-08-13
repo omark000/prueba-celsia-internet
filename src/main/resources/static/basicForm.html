@@ -34,37 +34,44 @@
 
 <script>
     document.getElementById('clienteForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        const cliente = {
-            identificacion: document.getElementById('identificacion').value,
-            nombres: document.getElementById('nombres').value,
-            apellidos: document.getElementById('apellidos').value,
-            tipoidentificacion: document.getElementById('tipoidentificacion').value,
-            fechanacimiento: document.getElementById('fechanacimiento').value,
-            numerocelular: document.getElementById('numerocelular').value,
-            correoelectronico: document.getElementById('correoelectronico').value
-        };
+    const cliente = {
+        identificacion: document.getElementById('identificacion').value,
+        nombres: document.getElementById('nombres').value,
+        apellidos: document.getElementById('apellidos').value,
+        tipoidentificacion: document.getElementById('tipoidentificacion').value,
+        fechanacimiento: document.getElementById('fechanacimiento').value,
+        numerocelular: document.getElementById('numerocelular').value,
+        correoelectronico: document.getElementById('correoelectronico').value
+    };
 
+    fetch('/CustomerController/saveCustomer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cliente)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Error en la respuesta del servidor');
+        }
+    })
+    .then(data => {
+
+        console.log('Cliente registrado:', data);
+        alert('Cliente registrado con éxito');
+    })
+    .catch(error => {
         debugger
-
-        fetch('/CustomerController/saveCustomer', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(cliente)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Cliente registrado:', data);
-            alert('Cliente registrado con éxito');
-        })
-        .catch(error => {
-            console.error('Error al registrar cliente:', error);
-            alert('Error al registrar cliente');
-        });
+        console.error('Error al registrar cliente:', error);
+        alert('Error al registrar cliente');
     });
+});
+
 </script>
 </body>
 </html>
