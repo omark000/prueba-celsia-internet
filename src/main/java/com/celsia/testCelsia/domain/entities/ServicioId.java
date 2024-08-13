@@ -1,6 +1,8 @@
 package com.celsia.testCelsia.domain.entities;
 
-public class ServicioId {
+import java.io.Serializable;
+
+public class ServicioId implements Serializable {
 
     private String identificacion;
     private String servicio;
